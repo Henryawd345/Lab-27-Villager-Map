@@ -16,7 +16,7 @@ int clampInt(int x, int lo, int hi) {
 }
 
 void printAll (const VillagerMap& m) {
-    cout << "Villager details:\n";
+    cout << "\nVillager details:\n";
     for (const auto& [name, data] : m) {
         const auto& [friendship, species, catchphrase] = data;
         cout << name << " [" << friendship << ", " << species << ", "
@@ -50,6 +50,40 @@ void decreaseFriendship (VillagerMap& m, const string& key){
     cout << key << " friendship decreased to " << f << ".\n";
 }
 
+void addVillager (VillagerMap& m){
+    string name, species, catchphrase;
+    int friendship;
+
+    cout << "\nVillager name: ";
+    getline(cin, name);
+    if (name.empty()) { cout << "Name cannot be empty.\n"; return; }
+
+    cout << "Friendship level (0-10): ";
+    if (!(cin >> friendship)) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid number.\n"; 
+        return;
+    }
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    friendship = clampInt(friendship, 0, 10);
+
+    cout << "Species: ";
+    getline(cin, species);
+
+    cout << "Catchphrase: ";
+    getline(cin, catchphrase);
+
+    m[name] = VillagerData{friendship, species, catchphrase};
+    cout << name << " added.\n";
+}
+
+void deleteVillager(VillagerMap& m, const string& key) {
+    size_t erased = m.erase(key);
+    if (erased) cout << key << " deleted.\n";
+    else        cout << key << " not found.\n";
+}
+
 int main() {
     VillagerMap villagers;
 
@@ -59,10 +93,12 @@ int main() {
 
     while (true){
         cout << "==============================\n";
-        cout << "1. Increase Friendship\n";
-        cout << "2. Decrease Friendship\n";
-        cout << "3. Search for Villager\n";
-        cout << "4. Exit\n";
+        cout << "1. Add Villager\n";
+        cout << "2. Delete Villager\n";
+        cout << "3. Increase Friendship\n";
+        cout << "4. Decrease Friendship\n";
+        cout << "5. Search for Villager\n";
+        cout << "6. Exit\n";
         cout << "Enter choice: ";
 
         int choice = 0;
@@ -74,31 +110,11 @@ int main() {
         }
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        if (choice == 4) { cout << "Goodbye!\n"; break; }
+        if (choice == 6) { cout << "Goodbye!\n"; break; }
 
         string name;
         switch (choice) {
-            case 1:
-                cout << "\nVillager name to increase friendship: ";
-                getline(cin, name);
-                increaseFriendship(villagers, name);
-                printAll(villagers);
-                break;
-            case 2:
-                cout << "\nVillager name to decrease friendship: ";
-                getline(cin, name);
-                decreaseFriendship(villagers, name);
-                printAll(villagers);
-                break;
-            case 3:
-                cout << "\nVillager name to search: ";
-                getline(cin, name);
-                searchVillager(villagers, name);
-                printAll(villagers);
-                break;
-            default:
-                cout << "Please choose 1-4.\n";
-        }
+           
     }
     return 0;
 }

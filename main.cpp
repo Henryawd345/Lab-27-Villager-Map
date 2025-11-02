@@ -97,7 +97,7 @@ int main() {
                 printAll(villagers);
                 break;
             default:
-                cout << "Please choose 1–4.\n";
+                cout << "Please choose 1-4.\n";
         }
     }
     return 0;

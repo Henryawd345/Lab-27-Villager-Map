@@ -1,7 +1,23 @@
 #include <iostream>
 #include <map>
+#include <tuple>
 #include <vector>
 using namespace std;
+
+using VillagerData = tuple<int, string, string>;
+using VillagerMap  = map<string, VillagerData>;
+
+void printAll(const VillagerMap& m) {
+    cout << "Villager details:\n";
+    for (const auto& [name, data] : m) {
+        const auto& [friendship, species, catchphrase] = data;
+        cout << name << " [" << friendship << ", " << species << ", "
+             << "\"" << catchphrase << "\"]\n";
+    }
+    cout << endl;
+}
+
+
 
 int main() {
     map<string, vector<string>> villagerColors;

@@ -114,7 +114,36 @@ int main() {
 
         string name;
         switch (choice) {
-           
+            case 1:
+                addVillager(villagers);
+                printAll(villagers);
+                break;
+            case 2:
+                cout << "\nVillager name to delete: ";
+                getline(cin, name);
+                deleteVillager(villagers, name);
+                printAll(villagers);
+                break;
+            case 3:
+                cout << "\nVillager name to increase friendship: ";
+                getline(cin, name);
+                increaseFriendship(villagers, name);
+                printAll(villagers);
+                break;
+            case 4:
+                cout << "\nVillager name to decrease friendship: ";
+                getline(cin, name);
+                decreaseFriendship(villagers, name);
+                printAll(villagers);
+                break;
+            case 5:
+                cout << "\nVillager name to search: ";
+                getline(cin, name);
+                searchVillager(villagers, name);
+                break;
+            default:
+                cout << "Please choose 1-6.\n";
+        }
     }
     return 0;
 }
